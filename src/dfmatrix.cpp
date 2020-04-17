@@ -140,6 +140,21 @@ DFMatrix& DFMatrix::operator=(std::initializer_list<double> li){
 	return *this;
 }
 
+DFMatrix& DFMatrix::operator+=(const DFMatrix& m){
+	if (this->rows != m.rows || this->cols != m.cols) {
+		_log_("operator+=  this->rows != m.rows || this->cols != m.cols");
+		return *this;
+	}
+	else {
+		for (size_t i = 0; i < m.rows; i++) {
+			for (size_t j = 0; j < m.cols; j++) {
+				this->data[i * cols + j] += m.data[i * cols + j];
+			}
+		}
+		return *this;
+	}
+}
+
 DFMatrix& DFMatrix::operator()(double* InputArray, size_t _size){
 	create(1,_size);
 	for(int i=0; i<_size; ++i)
@@ -213,6 +228,7 @@ DFMatrix DFMatrix::cross(DFMatrix &m){
 
 DFMatrix DFMatrix::conv(DFMatrix& m){
 	try{
+		//奇数行列方阵的卷积核
 		if(m.rows!=m.cols||m.rows%2==0)
 			throw;
 	}
@@ -222,22 +238,23 @@ DFMatrix DFMatrix::conv(DFMatrix& m){
 	}
 
 	DFMatrix temp(rows, cols);
+	temp.zeros();
 	int depth = m.rows / 2;
-	for(int i=0; i<temp.rows; ++i)
-		for(int j=0; j<temp.cols; ++j)
-			temp[i][j] = (*this).at(i-1,j-1)*m[0][0]+
-				(*this).at(i-1,j)*m[0][j]+
-				(*this).at(i-1,j+1)*m[0][2]+
-				(*this).at(i,j-1)*m[1][0]+
-				(*this).at(i,j)*m[1][1]+
-				(*this).at(i,j+1)*m[1][2]+
-				(*this).at(i+1,j-1)*m[2][0]+
-				(*this).at(i+1,j)*m[2][1]+
-				(*this).at(i+1,j+1)*m[2][2];
+	for (size_t i = 0; i < temp.rows; i++) {
+		for (size_t j = 0; j < temp.cols; j++) {
+
+			for (size_t ii = 0; ii < m.rows; ii++) {
+				for (size_t jj = 0; jj < m.cols; jj++) {
+					temp[i][j] += (*this).at(i - m.rows / 2 + ii, j - m.cols / 2 + jj) * m[ii][jj];
+				}
+			}
+		}
+	}
+
 	return temp;
 }
 
-double DFMatrix::at(int _rows, int _cols){
+inline double DFMatrix::at(int _rows, int _cols){
 	if(_rows<0||_cols<0||_rows>=rows||_cols>=cols)
 		return 0.0;
 	else

@@ -1,6 +1,6 @@
 #pragma onece
 
-#define DEBUG
+//#define DEBUG
 #if defined(DEBUG)
 #define _log_(str) do {\
 	cout << "[" << __FILE__ << "]" << "<" << __func__ << ">" << "(" << __LINE__ << "): " << str << endl;\
