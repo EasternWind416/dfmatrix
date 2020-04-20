@@ -72,5 +72,13 @@ bool operator==(const DFMatrix& m1, const DFMatrix & m2);
 bool operator!=(const DFMatrix& m1, const DFMatrix & m2);
 
 DFMatrix operator*(DFMatrix & m1, DFMatrix & m2);
+DFMatrix operator*(DFMatrix& m, double delta);
+DFMatrix operator*(double delta, DFMatrix& m);
+
 DFMatrix operator+(DFMatrix & m1, DFMatrix & m2);
+DFMatrix operator+(DFMatrix& m, double delta);
+DFMatrix operator+(double delta, DFMatrix& m);
+
 DFMatrix operator-(DFMatrix & m1, DFMatrix & m2);
+DFMatrix operator-(DFMatrix& m, double delta);
+DFMatrix operator-(double delta, DFMatrix& m);

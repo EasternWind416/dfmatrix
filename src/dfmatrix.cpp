@@ -319,6 +319,20 @@ DFMatrix operator*(DFMatrix &m1, DFMatrix &m2){
 	return m;
 }
 
+DFMatrix operator*(DFMatrix& m, double delta)
+{
+	DFMatrix temp(m.rows, m.cols);
+	for (size_t i = 0; i < m.size(); i++) {
+		temp.data[i] = m.data[i] * delta;
+	}
+	return temp;
+}
+
+DFMatrix operator*(double delta, DFMatrix& m)
+{
+	return m * delta;
+}
+
 DFMatrix operator+(DFMatrix &m1, DFMatrix &m2){
 	try{
 		if(m1.cols!=m2.cols||m1.rows!=m2.rows)
@@ -337,6 +351,20 @@ DFMatrix operator+(DFMatrix &m1, DFMatrix &m2){
 	return temp;
 }
 
+DFMatrix operator+(DFMatrix& m, double delta)
+{
+	DFMatrix temp(m.rows, m.cols);
+	for (size_t i = 0; i < m.size(); i++) {
+		temp.data[i] = m.data[i] + delta;
+	}
+	return temp;
+}
+
+DFMatrix operator+(double delta, DFMatrix& m)
+{
+	return m + delta;
+}
+
 DFMatrix operator-(DFMatrix& m1, DFMatrix& m2){
 	try{
 		if(m1.cols!=m2.cols||m1.rows!=m2.rows)
@@ -352,6 +380,25 @@ DFMatrix operator-(DFMatrix& m1, DFMatrix& m2){
 	for(int i=0; i<temp.rows; ++i)
 		for(int j=0; j<temp.cols; ++j)
 			temp[i][j] = m1[i][j] - m2[i][j];
+	return temp;
+}
+
+DFMatrix operator-(DFMatrix& m, double delta)
+{
+	return m + (-delta);
+}
+
+DFMatrix operator-(DFMatrix& m)
+{
+	return m * (-1);
+}
+
+DFMatrix operator-(double delta, DFMatrix& m)
+{
+	DFMatrix temp(m.rows, m.cols);
+	for (size_t i = 0; i < m.size(); i++) {
+		temp.data[i] = delta - m.data[i];
+	}
 	return temp;
 }
 

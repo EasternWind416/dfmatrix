@@ -122,8 +122,37 @@ DFMatrix test1() {
 	return m1;
 }
 
+DFMatrix test2() {
+	DFMatrix m1(5, 5);
+	m1 = { 1,2,3,4,5,
+		6,7,8,9,10,
+		11,12,13,14,15,
+		16,17,18,19,20,
+		21,22,23,24,25 };
+	cout << m1 << endl;
+	int delta = 2;
+
+	DFMatrix m1_r(5, 5);
+	m1_r = m1 - delta;
+	cout << m1_r << endl;
+	m1_r = delta - m1;
+	cout << m1_r << endl;
+
+	m1_r = m1 * delta;
+	cout << m1_r << endl;
+	m1_r = delta * m1;
+	cout << m1_r << endl;
+
+	m1_r = m1 + delta;
+	cout << m1_r << endl;
+	m1_r = delta + m1;
+	cout << m1_r << endl;
+
+	return m1;
+}
+
 int main(int argc, char* argv[]){
-	DFMatrix mat = test1();
+	DFMatrix mat = test2();
 	
 	system("pause");
 	return 0;
