@@ -74,7 +74,7 @@ DFMatrix test0() {
 
 	return mat1;
 }
-
+// test odd kernel convolution function
 DFMatrix test1() {
 	DFMatrix m1(5, 5);
 	m1 = { 1,2,3,4,5,
@@ -151,8 +151,52 @@ DFMatrix test2() {
 	return m1;
 }
 
+// test dot function
+void test3(){
+	DFMatrix m1(2, 2);
+	m1 = { 1,0,-1,3 };
+	DFMatrix m2(2, 2);
+	m2 = { 3,1,2,1 };
+
+	cout << "m1.*m2" << endl << m1.dot(m2) << endl;
+}
+
+// test two 2d array convolution
+void test_temp() {
+	int arr[5][5] = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 };
+	int kl[3][3] = { 1,1,1,1,-1,1,1,1,1 };
+
+	int res[5][5] = { 0 };
+
+	for (size_t i = 0; i < 5; i++) {
+		for (size_t j = 0; j < 5; j++) {
+
+			for (size_t ii = 0; ii < 3; ii++) {
+				for (size_t jj = 0; jj < 3; jj++) {
+					int x = i-3/2+ii, y = j-3/2+jj;
+					int temp = 0;
+					if (x < 0 || y < 0 || x >= 5 || y >= 5)
+						temp = 0;
+					else
+						temp = arr[x][y];
+					res[i][j] += temp * kl[ii][jj];
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < 5; i++) {
+		for (size_t j = 0; j < 5; j++) {
+			cout << res[i][j] << ",";
+		}
+		cout << endl;
+	}
+}
+
+
+
 int main(int argc, char* argv[]){
-	DFMatrix mat = test2();
+	test3();
 	
 	system("pause");
 	return 0;

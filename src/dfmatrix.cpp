@@ -179,6 +179,14 @@ double DFMatrix::rank(){
 	return temp;
 }
 
+double DFMatrix::tr()
+{
+	double temp = 0.0f;
+	int min_m_n = rows < cols ? rows : cols;
+
+	return temp;
+}
+
 DFMatrix DFMatrix::inv(){
 	DFMatrix m(cols, rows);
 
@@ -202,7 +210,18 @@ DFMatrix DFMatrix::t(){
 }
 
 DFMatrix DFMatrix::dot(DFMatrix &m){
-	DFMatrix temp(3,3);
+	try {
+		if (rows != m.rows || cols != m.cols) throw;
+	}
+	catch (exception) {
+		_log_("矩阵不符合运算规则");
+		return DFMatrix();
+	}
+
+	DFMatrix temp(m.rows, m.cols);
+	for (size_t i = 0; i < _size; i++) {
+		temp.data[i] = data[i] * m.data[i];
+	}
 
 	return temp;
 }

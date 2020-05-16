@@ -29,7 +29,7 @@ public:
 	DFMatrix cross(DFMatrix& m);
 	DFMatrix conv(DFMatrix& m);
 	double rank();
-
+	double tr();
 
 	DFMatrix clone() const;
 
